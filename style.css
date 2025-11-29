@@ -1,0 +1,222 @@
+/* style.css (Versão 12 - Final, Limpa, Fundo Gradiente e Cards Brancos) */
+
+:root {
+    /* Cores Finais da Marca e Fundo */
+    --color-primary-start: #004d99; /* Azul Escuro */
+    --color-primary-end: #6f42c1; /* Roxo */
+    --color-success: #28a745;
+    --color-danger: #dc3545;
+    
+    --color-background-card: #ffffff; /* Fundo Branco Sólido */
+    --color-text-dark: #343a40; /* Texto Escuro para Contraste */
+    --color-text-light: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* Fundo Gradiente no body */
+    background: linear-gradient(135deg, var(--color-primary-start) 0%, var(--color-primary-end) 100%);
+    color: var(--color-text-dark);
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(90deg, var(--color-primary-start) 0%, var(--color-primary-end) 100%);
+    color: var(--color-text-light);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+#header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+#welcomeMessage {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-text-light);
+}
+
+
+main {
+    padding: 20px;
+}
+
+/* Cards de Conteúdo (Home, Login, Listagem, Cadastro) */
+.view {
+    max-width: 800px; /* Mais compacto para as telas principais */
+    margin: 40px auto;
+    background-color: var(--color-background-card); /* Fundo Branco */
+    color: var(--color-text-dark); /* Texto Escuro */
+    padding: 30px;
+    border-radius: 12px; 
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); 
+}
+
+
+/* --- TELA HOME ESPECÍFICA --- */
+#home-view {
+    max-width: 700px;
+}
+#home-view h2 {
+    font-size: 2.2rem;
+    text-align: center;
+}
+.intro-text {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+.course-list {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+.course-list h3 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.course-list ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+.course-list li {
+    background-color: #e9ecef;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-primary-start);
+}
+.course-list li i {
+    color: var(--color-success);
+    margin-right: 5px;
+}
+#btnAcessarLogin {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    background-color: var(--color-primary-start);
+}
+#btnAcessarLogin:hover {
+    background-color: var(--color-primary-end);
+}
+
+/* --- TELA DE AUTENTICAÇÃO E PLATAFORMA --- */
+.form-container {
+    display: flex; 
+    gap: 30px; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.form-container form {
+    flex: 1; 
+    min-width: 300px;
+}
+
+h2, h3 {
+    color: var(--color-primary-start); 
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    margin-left: 0; 
+}
+.back-button {
+    background: none;
+    color: var(--color-primary-start);
+    border: 1px solid var(--color-primary-start);
+    padding: 8px 15px;
+    margin-top: 15px;
+    font-weight: normal;
+}
+.back-button:hover {
+    background: var(--color-primary-start);
+    color: white;
+}
+/* Alinhamento da Tabela */
+#turmas-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden; 
+}
+#turmas-table th, #turmas-table td {
+    border: 1px solid #dee2e6;
+    padding: 12px;
+    color: var(--color-text-dark);
+}
+#turmas-table th {
+    background-color: #e9ecef;
+    font-weight: 600;
+}
+#turmas-table th:nth-child(5), #turmas-table td:nth-child(5) { text-align: center; }
+#turmas-table td:nth-child(6) { display: flex; justify-content: flex-start; gap: 5px; }
+
+/* Estilo dos Inputs e Botões (Mantidos) */
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #f8f9fa; 
+    color: var(--color-text-dark);
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+button {
+    padding: 10px 20px;
+    background-color: var(--color-success); 
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 10px;
+    transition: background-color 0.2s;
+}
+.delete-btn { background-color: var(--color-danger); }
+#btnLogout { background: var(--color-primary-end); }
+
+/* --- Responsividade (Mantida) --- */
+@media (max-width: 768px) {
+    header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    #header-controls { width: 100%; justify-content: space-between; }
+    .form-container { flex-direction: column; gap: 20px; }
+    
+    /* Regras de Tabela para Mobile */
+    #turmas-table thead { display: none; }
+    #turmas-table tr { margin-bottom: 15px; border: 1px solid #dee2e6; display: block; border-radius: 8px; overflow: hidden; }
+    #turmas-table td { text-align: right; padding-left: 50%; position: relative; border: none; border-bottom: 1px solid #eee; display: block; }
+    #turmas-table td:nth-child(6) { justify-content: space-between; }
+    #turmas-table td::before { content: attr(data-label); position: absolute; left: 10px; width: 45%; padding-right: 10px; white-space: nowrap; text-align: left; font-weight: 600; color: #6c757d; }
+}
+
+/* --- Modal --- */
+.modal-content {
+    background-color: var(--color-background-card); 
+    color: var(--color-text-dark);
+}
+.close-button { color: #aaa; }
+.close-button:hover, .close-button:focus { color: #343a40; }

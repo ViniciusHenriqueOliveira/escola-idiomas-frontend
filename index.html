@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escola de Idiomas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header id="main-header">
+        <h1><i class="fas fa-graduation-cap"></i> Escola de Idiomas</h1>
+        <div id="header-controls">
+            <span id="welcomeMessage"></span>
+            <button id="btnLogout" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- NOVO: TELA HOME (Informações da Escola) -->
+        <section id="home-view" class="view active">
+            <div class="home-content">
+                <h2>Bem-vindo à Escola de Idiomas</h2>
+                <p class="intro-text">
+                    Sua jornada para a fluência começa aqui. Oferecemos opções de línguas para estudar, classificadas por níveis internacionais: A1, A2, B1, B2, C1 e C2.
+                </p>
+                <div class="course-list">
+                    <h3>Nossos Cursos Disponíveis</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Inglês (Geral e Negócios)</li>
+                        <li><i class="fas fa-check-circle"></i> Espanhol (Conversação e Cultura)</li>
+                        <li><i class="fas fa-check-circle"></i> Francês (Nível Básico ao Avançado)</li>
+                        <li><i class="fas fa-check-circle"></i> Alemão e Japonês (Sob demanda)</li>
+                    </ul>
+                </div>
+                <button id="btnAcessarLogin"><i class="fas fa-sign-in-alt"></i> Acessar Plataforma / Login</button>
+            </div>
+        </section>
+
+
+        <!-- TELA 1: Login e Cadastro -->
+        <section id="auth-view" class="view" style="display: none;">
+            <h2>Acesso à Plataforma</h2>
+            
+            <div class="form-container">
+                <form id="login-form">
+                    <h3><i class="fas fa-user-check"></i> Login</h3>
+                    <input type="email" id="loginEmail" placeholder="E-mail" required>
+                    <input type="password" id="loginSenha" placeholder="Senha" required>
+                    <button type="submit">Entrar</button>
+                </form>
+
+                <form id="cadastro-form">
+                    <h3><i class="fas fa-user-plus"></i> Cadastre-se</h3>
+                    <input type="text" id="cadastroNome" placeholder="Seu Nome" required>
+                    <input type="email" id="cadastroEmail" placeholder="E-mail" required>
+                    <input type="password" id="cadastroSenha" placeholder="Senha" required>
+                    <button type="submit">Cadastrar</button>
+                </form>
+            </div>
+            <p class="back-link"><button id="btnVoltarHome" class="back-button"><i class="fas fa-arrow-left"></i> Voltar para Home</button></p>
+        </section>
+
+        <!-- TELA 2: Listagem de Turmas -->
+        <section id="list-view" class="view" style="display: none;">
+            <h2><i class="fas fa-book-open"></i> Gerenciamento de Turmas</h2>
+            <button id="btnAbrirCadastroTurma"><i class="fas fa-plus"></i> Nova Turma</button>
+            
+            <div class="table-scroll">
+                <table id="turmas-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Nível</th>
+                            <th>Professor</th>
+                            <th>Horário</th>
+                            <th>Matrícula</th>
+                            <th>Gerenciar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Linhas das turmas serão inseridas aqui via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <p id="no-turmas-msg" style="display: none; text-align: center; margin-top: 20px; color: #6c757d;">Nenhuma turma cadastrada. Crie a primeira!</p>
+        </section>
+
+        <!-- TELA 3: Cadastro/Edição de Turmas -->
+        <section id="form-view" class="view" style="display: none;">
+            <h2 id="form-title"><i class="fas fa-chalkboard-teacher"></i> Cadastrar Nova Turma</h2>
+            <form id="turma-form">
+                <input type="hidden" id="turmaId">
+                <input type="text" id="turmaNome" placeholder="Nome do Curso (Ex: Inglês Básico)" required>
+                <input type="text" id="turmaNivel" placeholder="Nível (Ex: A1, B2)" required>
+                <input type="text" id="turmaProfessor" placeholder="Professor" required>
+                <input type="text" id="turmaHorario" placeholder="Horário (Ex: Seg/Qua - 19h)" required>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button type="submit" id="submitTurmaBtn"><i class="fas fa-save"></i> Salvar Turma</button>
+                    <button type="button" id="btnCancelarTurma" class="delete-btn"><i class="fas fa-times"></i> Cancelar</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- MODAL para Listagem de Alunos -->
+    <div id="alunos-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3><i class="fas fa-users"></i> Alunos Matriculados em <span id="modal-turma-nome"></span></h3>
+            <ul id="alunos-list">
+                <!-- Alunos serão inseridos aqui -->
+            </ul>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
