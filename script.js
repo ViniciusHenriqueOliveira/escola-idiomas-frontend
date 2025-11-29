@@ -1,7 +1,7 @@
 // script.js (Versão 12 - Lógica Otimizada para Home e SPA)
 
 // URL base da sua API REST (MUDAR PARA O ENDEREÇO DO RENDER APÓS O DEPLOY!)
-const BACKEND_URL = 'http://localhost:3000'; 
+const BACKEND_URL = 'https://projetodesenweb.onrender.com'; 
 
 let currentUser = null; 
 
