@@ -17,7 +17,7 @@
     </header>
 
     <main>
-        <!-- NOVO: TELA HOME (Informações da Escola) -->
+        <!-- TELA HOME (Informações da Escola) -->
         <section id="home-view" class="view active">
             <div class="home-content">
                 <h2>Bem-vindo à Escola de Idiomas</h2>
@@ -61,29 +61,13 @@
             <p class="back-link"><button id="btnVoltarHome" class="back-button"><i class="fas fa-arrow-left"></i> Voltar para Home</button></p>
         </section>
 
-        <!-- TELA 2: Listagem de Turmas -->
+        <!-- TELA 2: Listagem de Turmas (Agora apenas com botões) -->
         <section id="list-view" class="view" style="display: none;">
             <h2><i class="fas fa-book-open"></i> Gerenciamento de Turmas</h2>
-            <button id="btnAbrirCadastroTurma"><i class="fas fa-plus"></i> Nova Turma</button>
-            
-            <div class="table-scroll">
-                <table id="turmas-table">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Nível</th>
-                            <th>Professor</th>
-                            <th>Horário</th>
-                            <th>Matrícula</th>
-                            <th>Gerenciar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Linhas das turmas serão inseridas aqui via JavaScript -->
-                    </tbody>
-                </table>
+            <div class="list-controls">
+                <button id="btnAbrirCadastroTurma"><i class="fas fa-plus"></i> Nova Turma</button>
+                <button id="btnAbrirTurmasModal"><i class="fas fa-list-alt"></i> Ver Turmas Cadastradas</button>
             </div>
-            <p id="no-turmas-msg" style="display: none; text-align: center; margin-top: 20px; color: #6c757d;">Nenhuma turma cadastrada. Crie a primeira!</p>
         </section>
 
         <!-- TELA 3: Cadastro/Edição de Turmas -->
@@ -102,8 +86,21 @@
             </form>
         </section>
     </main>
+    
+    <!-- NOVO MODAL para Listagem de Turmas (Tabela removida daqui) -->
+    <div id="turmas-list-modal" class="modal" style="display: none;">
+        <div class="modal-content large-modal">
+            <span class="close-button" id="closeTurmasModal">&times;</span>
+            <h3><i class="fas fa-chalkboard-teacher"></i> Turmas Ativas</h3>
+            <div id="turmas-cards-container" class="cards-grid">
+                <!-- Cards das turmas serão inseridos aqui via JavaScript -->
+            </div>
+            <p id="no-turmas-msg" style="display: none; text-align: center; margin-top: 20px; color: #6c757d;">Nenhuma turma cadastrada. Crie a primeira!</p>
+        </div>
+    </div>
 
-    <!-- MODAL para Listagem de Alunos -->
+
+    <!-- MODAL antigo para Listagem de Alunos -->
     <div id="alunos-modal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close-button">&times;</span>

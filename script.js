@@ -1,6 +1,7 @@
-// script.js (Versão 12 - Lógica Otimizada para Home e SPA)
+// script.js (Versão 14 - Usando Modal de Cards para Listagem de Turmas)
 
 // URL base da sua API REST (MUDAR PARA O ENDEREÇO DO RENDER APÓS O DEPLOY!)
+// **LEMBRE-SE DE USAR A URL HTTPS DO SEU BACKEND AQUI**
 const BACKEND_URL = 'https://projetodesenweb.onrender.com'; 
 
 let currentUser = null; 
@@ -33,6 +34,11 @@ function showView(viewId) {
 
     document.getElementById('btnLogout').style.display = isPlatformView ? 'block' : 'none';
     document.getElementById('welcomeMessage').style.display = controlsDisplay;
+
+    // Se for para a lista principal, tenta carregar as turmas
+    if (viewId === 'list-view') {
+         // Não carrega automaticamente, o usuário precisa clicar no botão "Ver Turmas Cadastradas"
+    }
 }
 
 function checkAuth() {
@@ -43,7 +49,7 @@ function checkAuth() {
         currentUser = JSON.parse(userJson);
         document.getElementById('welcomeMessage').textContent = `Olá, ${currentUser.nome}!`;
         showView('list-view'); // Se logado, vai direto para a plataforma
-        fetchTurmas(); 
+        // Turmas só serão carregadas quando o modal for aberto (handleOpenTurmasModal)
     } else {
         currentUser = null;
         showView('home-view'); // Se não logado, começa na Home
@@ -126,7 +132,22 @@ function handleLogout() {
     showView('home-view'); 
 }
 
-// --- Funções de CRUD (Mantidas) ---
+// --- Funções de CRUD para o Modal de Turmas (RF03, RF04) ---
+
+function handleOpenTurmasModal() {
+    const modal = document.getElementById('turmas-list-modal');
+    if (modal) {
+        modal.style.display = 'block';
+        fetchTurmas(); // Carrega as turmas quando o modal abre
+    }
+}
+
+function handleCloseTurmasModal() {
+    const modal = document.getElementById('turmas-list-modal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
 
 async function fetchTurmas() {
     const token = localStorage.getItem('token');
@@ -139,40 +160,48 @@ async function fetchTurmas() {
         });
 
         const data = await response.json();
-        const tbody = document.querySelector('#turmas-table tbody');
-        if (!tbody) return; 
-
-        tbody.innerHTML = ''; 
+        const container = document.getElementById('turmas-cards-container');
         const noTurmasMsg = document.getElementById('no-turmas-msg');
+        if (!container || !noTurmasMsg) return;
+
+        container.innerHTML = ''; 
 
         if (response.ok && Array.isArray(data) && data.length > 0) {
-            if (noTurmasMsg) noTurmasMsg.style.display = 'none';
+            noTurmasMsg.style.display = 'none';
             data.forEach(turma => {
-                const row = tbody.insertRow();
+                const isMatriculado = turma.esta_matriculado;
+                const matriculaText = isMatriculado ? 'Desmatricular' : 'Matricular';
+                const matriculaClass = isMatriculado ? 'delete-btn' : 'success-btn'; 
+                const matriculaAction = isMatriculado ? `handleDesmatricular(${turma.id})` : `handleMatricular(${turma.id})`;
                 
-                const matriculaText = turma.esta_matriculado ? 'Desmatricular' : 'Matricular';
-                const matriculaClass = turma.esta_matriculado ? 'delete-btn' : ''; 
-                const matriculaAction = turma.esta_matriculado ? `handleDesmatricular(${turma.id})` : `handleMatricular(${turma.id})`;
-                const matriculaBtn = `<button class="${matriculaClass}" onclick="${matriculaAction}">${matriculaText}</button>`;
-
                 const isCreator = currentUser && currentUser.id === turma.usuario_criador_id;
+                
                 const deleteBtn = isCreator 
                     ? `<button class="delete-btn" onclick="handleDeleteTurma(${turma.id})"><i class="fas fa-trash"></i> Excluir</button>`
                     : `<button class="delete-btn" disabled title="Apenas o criador pode excluir"><i class="fas fa-trash"></i> Excluir</button>`;
                 
-                const alunosBtn = `<button onclick="handleViewAlunos(${turma.id}, '${turma.nome}')"><i class="fas fa-users"></i> Ver Alunos</button>`;
-
-                row.innerHTML = `
-                    <td data-label="Nome">${turma.nome}</td>
-                    <td data-label="Nível">${turma.nivel}</td>
-                    <td data-label="Professor">${turma.professor}</td>
-                    <td data-label="Horário">${turma.horario}</td>
-                    <td data-label="Matrícula">${matriculaBtn}</td>
-                    <td data-label="Gerenciar" style="display: flex; gap: 5px;">${deleteBtn} ${alunosBtn}</td>
+                const alunosBtn = `<button class="info-btn" onclick="handleViewAlunos(${turma.id}, '${turma.nome}')"><i class="fas fa-users"></i> Ver Alunos</button>`;
+                
+                const card = document.createElement('div');
+                card.className = 'turma-card';
+                
+                card.innerHTML = `
+                    <div>
+                        <h4>${turma.nome}</h4>
+                        <p><strong>Nível:</strong> ${turma.nivel}</p>
+                        <p><strong>Professor:</strong> ${turma.professor}</p>
+                        <p><strong>Horário:</strong> ${turma.horario}</p>
+                    </div>
+                    <div class="turma-card-footer">
+                        <button class="${matriculaClass}" onclick="${matriculaAction}">${matriculaText}</button>
+                        ${deleteBtn}
+                        ${alunosBtn}
+                    </div>
                 `;
+                container.appendChild(card);
             });
         } else if (response.ok && data.length === 0) {
-            if (noTurmasMsg) noTurmasMsg.style.display = 'block';
+            noTurmasMsg.style.display = 'block';
         } else {
             if (response.status === 401 || response.status === 403) { handleLogout(); }
             console.error('Erro ao carregar turmas:', data.error);
@@ -183,6 +212,7 @@ async function fetchTurmas() {
         alert('Não foi possível conectar-se ao servidor. Verifique se o Back-end está rodando.');
     }
 }
+
 
 async function handleMatricular(turmaId) {
     const token = localStorage.getItem('token');
@@ -197,7 +227,7 @@ async function handleMatricular(turmaId) {
         
         if (response.ok || response.status === 409) { 
             alert(data.message);
-            fetchTurmas(); 
+            fetchTurmas(); // Atualiza a lista no modal
         } else {
             alert(`Erro ao matricular: ${data.message || data.error}`);
         }
@@ -222,7 +252,7 @@ async function handleDesmatricular(turmaId) {
 
         if (response.ok) {
             alert(data.message);
-            fetchTurmas(); 
+            fetchTurmas(); // Atualiza a lista no modal
         } else {
             alert(`Erro ao desmatricular: ${data.message || data.error}`);
         }
@@ -298,7 +328,7 @@ async function handleSaveTurma(e) {
             alert('Turma salva com sucesso!');
             document.getElementById('turma-form').reset();
             showView('list-view');
-            fetchTurmas();
+            // Não chama fetchTurmas() aqui, o usuário verá ao abrir o modal
         } else {
             alert(`Erro ao salvar: ${data.error}`);
         }
@@ -321,7 +351,7 @@ async function handleDeleteTurma(id) {
 
         if (response.ok) {
             alert('Turma excluída com sucesso.');
-            fetchTurmas();
+            fetchTurmas(); // Atualiza o modal após exclusão
         } else {
             const data = await response.json();
             alert(`Erro ao excluir: ${data.error}`);
@@ -363,12 +393,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (turmaForm) turmaForm.addEventListener('submit', handleSaveTurma);
     if (btnCancelarTurma) btnCancelarTurma.addEventListener('click', () => showView('list-view'));
     
-    // 5. Listeners do Modal de Alunos
-    const modal = document.getElementById('alunos-modal');
-    const closeBtn = modal ? modal.querySelector('.close-button') : null;
+    // 5. LISTENERS DO NOVO MODAL DE TURMAS
+    const turmasModal = document.getElementById('turmas-list-modal');
+    const btnAbrirTurmasModal = document.getElementById('btnAbrirTurmasModal');
+    const closeTurmasModal = document.getElementById('closeTurmasModal');
+
+    if (btnAbrirTurmasModal) btnAbrirTurmasModal.addEventListener('click', handleOpenTurmasModal);
+    if (closeTurmasModal) closeTurmasModal.addEventListener('click', handleCloseTurmasModal);
+
+    if (turmasModal) {
+        window.addEventListener('click', (event) => {
+            if (event.target == turmasModal) {
+                handleCloseTurmasModal();
+            }
+        });
+    }
+
+    // 6. Listeners do Modal de Alunos (Mantidos)
+    const alunosModal = document.getElementById('alunos-modal');
+    const closeBtnAlunos = alunosModal ? alunosModal.querySelector('.close-button') : null;
     
-    if (modal && closeBtn) {
-        closeBtn.onclick = function() { modal.style.display = "none"; };
-        window.onclick = function(event) { if (event.target == modal) modal.style.display = "none"; };
+    if (alunosModal && closeBtnAlunos) {
+        closeBtnAlunos.onclick = function() { alunosModal.style.display = "none"; };
+        window.onclick = function(event) { if (event.target == alunosModal) alunosModal.style.display = "none"; };
     }
 });
