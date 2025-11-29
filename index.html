@@ -1,3 +1,13 @@
+<!-- 
+RF01 (Cadastro):      FEITO - Cadastro de novos usuários.
+RF02 (Autenticação):  FEITO - Login/Logout e uso de JWT para acesso.
+RF03 (CRUD):          FEITO - Criação (POST /turmas) e Exclusão (DELETE /turmas/:id) implementadas.
+RF04 (Listagem):      FEITO - Listagem de turmas em formato de Cards (Modal).
+RF05 (API REST):      FEITO - Comunicação total via API REST no Back-end.
+RF06 (Supabase/SQL):  FEITO - Integração com PostgreSQL (Supabase).
+RF07 (3+ Telas):      FEITO - Possui Home, Auth (Login/Cadastro), Form Turma e Listagem (Modal).
+RNF04 (Deploy):       FEITO - Front-end implantado no Vercel.
+-->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -87,26 +97,22 @@
         </section>
     </main>
     
-    <!-- NOVO MODAL para Listagem de Turmas (Tabela removida daqui) -->
     <div id="turmas-list-modal" class="modal" style="display: none;">
         <div class="modal-content large-modal">
             <span class="close-button" id="closeTurmasModal">&times;</span>
             <h3><i class="fas fa-chalkboard-teacher"></i> Turmas Ativas</h3>
             <div id="turmas-cards-container" class="cards-grid">
-                <!-- Cards das turmas serão inseridos aqui via JavaScript -->
             </div>
             <p id="no-turmas-msg" style="display: none; text-align: center; margin-top: 20px; color: #6c757d;">Nenhuma turma cadastrada. Crie a primeira!</p>
         </div>
     </div>
 
 
-    <!-- MODAL antigo para Listagem de Alunos -->
     <div id="alunos-modal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h3><i class="fas fa-users"></i> Alunos Matriculados em <span id="modal-turma-nome"></span></h3>
             <ul id="alunos-list">
-                <!-- Alunos serão inseridos aqui -->
             </ul>
         </div>
     </div>

@@ -1,12 +1,17 @@
-// script.js (Versão 14 - Usando Modal de Cards para Listagem de Turmas)
+/* 
+RF01 (Cadastro):      FEITO
+RF02 (Autenticação):  FEITO
+RF03 (CRUD):          FEITO (Criação e Exclusão)
+RF04 (Listagem):      FEITO
+RF05 (API REST):      FEITO
+RF06 (Supabase/SQL):  FEITO
+RF07 (3+ Telas):      FEITO
+*/
 
-// URL base da sua API REST (MUDAR PARA O ENDEREÇO DO RENDER APÓS O DEPLOY!)
-// **LEMBRE-SE DE USAR A URL HTTPS DO SEU BACKEND AQUI**
+// URL base da API REST 
 const BACKEND_URL = 'https://projetodesenweb.onrender.com'; 
 
 let currentUser = null; 
-
-// --- Funções de Navegação e Autenticação (RF01, RF02, RF07) ---
 
 function showView(viewId) {
     // Esconde todas as views
@@ -57,7 +62,6 @@ function checkAuth() {
     }
 }
 
-// NOVO: Navegação entre telas da SPA
 function handleNavigateTo(targetViewId) {
     if (targetViewId === 'home-view') {
         checkAuth(); // Verifica se está logado (se sim, vai para a listagem)

@@ -1,14 +1,15 @@
-/* style.css (Versão 13 - Final, Limpa, Fundo Gradiente e Cards Brancos) */
-
+/* 
+RNF01 (Usabilidade): FEITO - Layout limpo, cards e responsividade (media queries).
+RNF02 (Organização): FEITO - Código organizado e comentado.
+*/
 :root {
-    /* Cores Finais da Marca e Fundo */
-    --color-primary-start: #004d99; /* Azul Escuro */
-    --color-primary-end: #6f42c1; /* Roxo */
+    --color-primary-start: #004d99; 
+    --color-primary-end: #6f42c1; 
     --color-success: #28a745;
     --color-danger: #dc3545;
     
-    --color-background-card: #ffffff; /* Fundo Branco Sólido */
-    --color-text-dark: #343a40; /* Texto Escuro para Contraste */
+    --color-background-card: #ffffff; 
+    --color-text-dark: #343a40; 
     --color-text-light: #ffffff;
     --color-info: #17a2b8;
 }
@@ -17,7 +18,6 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    /* Fundo Gradiente no body */
     background: linear-gradient(135deg, var(--color-primary-start) 0%, var(--color-primary-end) 100%);
     color: var(--color-text-dark);
     min-height: 100vh;
@@ -58,19 +58,16 @@ main {
     padding: 20px;
 }
 
-/* Cards de Conteúdo (Home, Login, Listagem, Cadastro) */
 .view {
-    max-width: 800px; /* Mais compacto para as telas principais */
+    max-width: 800px; 
     margin: 40px auto;
-    background-color: var(--color-background-card); /* Fundo Branco */
-    color: var(--color-text-dark); /* Texto Escuro */
+    background-color: var(--color-background-card); 
+    color: var(--color-text-dark); 
     padding: 30px;
     border-radius: 12px; 
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); 
 }
 
-
-/* --- TELA HOME ESPECÍFICA --- */
 #home-view {
     max-width: 700px;
 }
@@ -123,7 +120,6 @@ main {
     background-color: var(--color-primary-end);
 }
 
-/* --- TELA DE AUTENTICAÇÃO E PLATAFORMA --- */
 .form-container {
     display: flex; 
     gap: 30px; 
@@ -154,7 +150,6 @@ h2, h3 {
     background: var(--color-primary-start);
     color: white;
 }
-/* Controls na Tela de Listagem */
 .list-controls {
     display: flex;
     gap: 15px;
@@ -162,7 +157,6 @@ h2, h3 {
     justify-content: center;
 }
 
-/* Estilo dos Inputs e Botões (Mantidos) */
 input[type="text"], input[type="email"], input[type="password"] {
     width: 100%;
     padding: 12px;
@@ -187,7 +181,6 @@ button {
 .delete-btn { background-color: var(--color-danger); }
 #btnLogout { background: var(--color-primary-end); }
 
-/* --- Modal Base (Novo e Antigo) --- */
 .modal {
     display: none; 
     position: fixed; 
@@ -230,7 +223,6 @@ button {
     cursor: pointer;
 }
 
-/* --- Estilos do Card de Turma (NOVO) --- */
 .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -276,16 +268,14 @@ button {
     margin-top: 15px;
     padding-top: 10px;
     border-top: 1px dashed #ced4da;
-    justify-content: flex-end; /* Alinha botões à direita */
+    justify-content: flex-end; 
 }
 .turma-card-footer button {
-    margin: 0; /* Remove margin-right padrão */
+    margin: 0; 
     font-size: 0.85rem;
     padding: 7px 12px;
 }
 
-
-/* --- Responsividade (Ajustada para Modal) --- */
 @media (max-width: 768px) {
     header { flex-direction: column; align-items: flex-start; gap: 10px; }
     #header-controls { width: 100%; justify-content: space-between; }
